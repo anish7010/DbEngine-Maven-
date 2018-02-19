@@ -12,7 +12,7 @@ class Main {
         
         //object of QueryParameter class
         QueryParameter qp = new QueryParameter();
-        
+
         //object for performing methods on file
         FileCheck fc = new FileCheck();
         ArrayList<String[]> al = new ArrayList<>();

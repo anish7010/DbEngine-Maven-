@@ -52,7 +52,7 @@ public class TestQueryParameter {
 		
 		@Test
 		public void conditionsTest() {
-			String query = "select * from csv where name = 'anish' and age = 22 or color = 'blue'";
+			String query = "name = 'anish' and age = 22 or color = 'blue'";
 			String[] expected = {"name = 'anish'","age = 22","color = 'blue'"};
 			String[] result = qp.conditions(query);
 			Assert.assertArrayEquals(expected, result);
