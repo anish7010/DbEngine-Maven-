@@ -36,6 +36,6 @@ class Main {
         for(String s : al.get(9))
         	System.out.println(s);
         	
-        scanner.close();
+       // scanner.close();
     }
 }
