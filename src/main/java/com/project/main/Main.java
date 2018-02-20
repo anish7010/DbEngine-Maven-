@@ -5,10 +5,10 @@ class Main {
     public static void main(String[] args) {
     	//to be input by the user
     	
-        String user_query;
-        Scanner scanner = new Scanner(System.in);
+        String user_query = "select * from ipl.csv";
+       // Scanner scanner = new Scanner(System.in);
         System.out.println("Please input your query : ");
-        user_query = scanner.nextLine();
+        //user_query = scanner.nextLine();
         
         //object of QueryParameter class
         QueryParameter qp = new QueryParameter();
