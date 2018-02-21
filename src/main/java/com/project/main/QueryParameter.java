@@ -57,9 +57,34 @@ public class QueryParameter {
         //stores the fields to be displayed
         return fields.split(",");
 	}
-	//getting datatypes
 	
-	public HashMap<String, String> getDatatype(ArrayList<String[]> rowList) {
+	public ArrayList<String> getDatatype(ArrayList<String[]> rowList) {
+		//contains the first row
+		String[] columns = rowList.get(1);
+		//for integers and date
+		Pattern number = Pattern.compile("[0-9]+");
+		Pattern date = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		Matcher m;
+				
+		ArrayList<String> datatype = new ArrayList<>();
+		for(String s : columns) {
+			m = date.matcher(s);
+			if(m.find()) {
+				datatype.add("Date");
+			}
+			else {
+				m = number.matcher(s);
+				if(m.find())
+					datatype.add("Integer");
+				else
+					datatype.add("String");
+			}
+		}
+		return datatype;
+	}
+	
+	//presentable getting datatypes
+	public HashMap<String, String> hashedGetDatatype(ArrayList<String[]> rowList) {
 		//contains the first row
 		String[] keys = rowList.get(0);
 		HashMap<String, String> mappedData = new HashMap<>();
@@ -95,13 +120,14 @@ public class QueryParameter {
 	}
 	
 	public void FireQuery(String query, ArrayList<String[]> allData, QueryParameter qp) {
-		
+		//contains where
 		if(query.contains("where")) {
 			
 		}
-		
+		//doesn't contains where
 		else {
 			//doesn't contain where and a * is there
+			//contains * and no where
 			if(query.contains("*")) {
 				//to display all
 			    for(String s[]: allData) {
@@ -112,11 +138,23 @@ public class QueryParameter {
 			    }
 		       
 			}
-			
+			//contains no star and no where
 			else {
 				String[] fields = qp.fields(query);
-				for(String s : fields)
-					System.out.println(s);
+				String[] var = allData.get(0);
+				int i = 0;
+				ArrayList<Integer> index = new ArrayList<>();
+				for(String s : fields) {
+					for(String j : var) {
+						if(s.equals(j)){
+							index.add(i);
+						}
+						i++;
+					}
+				}
+				for(int x : index)
+					System.out.println(x);
+				
 			}
 		}
 			

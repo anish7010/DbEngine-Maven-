@@ -5,7 +5,7 @@ class Main {
     public static void main(String[] args) {
     	
     	//taking it hard coded values because of jenkins
-        String user_query = "select name,id from ipl.csv";
+        String user_query = "select * from ipl.csv";
         //user_query = scanner.nextLine();
         
         //object of QueryParameter class
@@ -16,12 +16,10 @@ class Main {
         ArrayList<String[]> allData = new ArrayList<>();
         //contains all the data from the csv file in a 2d array format
         allData = fc.allData();
+        
+        qp.FireQuery(user_query, allData,qp);
+        
+        //System.out.println(qp.getDatatype(allData));
        
-        
-        
-        //qp.FireQuery(user_query, allData,qp);
-        
-        System.out.println(qp.getDatatype(allData));
-        
     }
 }
