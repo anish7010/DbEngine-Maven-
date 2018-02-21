@@ -1,7 +1,10 @@
 package com.project.main;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.print.attribute.HashAttributeSet;
 
 public class QueryParameter {
 	//query to be performed
@@ -53,6 +56,70 @@ public class QueryParameter {
         }
         //stores the fields to be displayed
         return fields.split(",");
+	}
+	//getting datatypes
+	
+	public HashMap<String, String> getDatatype(ArrayList<String[]> rowList) {
+		//contains the first row
+		String[] keys = rowList.get(0);
+		HashMap<String, String> mappedData = new HashMap<>();
+		
+		//for integers and date
+		Pattern number = Pattern.compile("[0-9]+");
+		Pattern date = Pattern.compile("[0-9]{4}-[0-9]{2}-[0-9]{2}");
+		Matcher m;
+		
+		//for checking out the values
+		String[] columns = rowList.get(1);
+		
+		ArrayList<String> datatype = new ArrayList<>();
+		for(String s : columns) {
+			m = date.matcher(s);
+			if(m.find()) {
+				datatype.add("Date");
+			}
+			else {
+				m = number.matcher(s);
+				if(m.find())
+					datatype.add("Integer");
+				else
+					datatype.add("String");
+			}
+		}
+		
+		for(int i = 0; i < columns.length;i++) {
+			mappedData.put(keys[i], datatype.get(i));
+		}
+			
+		return mappedData;
+	}
+	
+	public void FireQuery(String query, ArrayList<String[]> allData, QueryParameter qp) {
+		
+		if(query.contains("where")) {
+			
+		}
+		
+		else {
+			//doesn't contain where and a * is there
+			if(query.contains("*")) {
+				//to display all
+			    for(String s[]: allData) {
+			    	System.out.println();
+			    	for(String s1 : s) {
+			    		System.out.print(s1+"\t\t");
+			    	}
+			    }
+		       
+			}
+			
+			else {
+				String[] fields = qp.fields(query);
+				for(String s : fields)
+					System.out.println(s);
+			}
+		}
+			
 	}
 	
 }

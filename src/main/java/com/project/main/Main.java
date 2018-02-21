@@ -3,11 +3,9 @@ import java.util.*;
 
 class Main {
     public static void main(String[] args) {
-    	//to be input by the user
     	
-        String user_query = "select * from ipl.csv";
-       // Scanner scanner = new Scanner(System.in);
-        System.out.println("Please input your query : ");
+    	//taking it hard coded values because of jenkins
+        String user_query = "select name,id from ipl.csv";
         //user_query = scanner.nextLine();
         
         //object of QueryParameter class
@@ -15,27 +13,15 @@ class Main {
 
         //object for performing methods on file
         FileCheck fc = new FileCheck();
-        ArrayList<String[]> al = new ArrayList<>();
+        ArrayList<String[]> allData = new ArrayList<>();
         //contains all the data from the csv file in a 2d array format
-        al = fc.allData();
-        //contains the datatype of each column
-        ArrayList<String> data = fc.getDatatype(al);
+        allData = fc.allData();
+       
         
-     /*   //fields to be displayed
-        String[] fields = qp.fields(user_query);
-        String pop = fields[0] ;
-        System.out.println(fields[0]);
-     */   
-       /* //to display all
-        if(fields[0].equals(" * ")) {
-	    	for(String s[]: al)
-	    		for(String s1 : s)
-	    			System.out.println(s1);
-        }*/
         
-        for(String s : al.get(9))
-        	System.out.println(s);
-        	
-       // scanner.close();
+        //qp.FireQuery(user_query, allData,qp);
+        
+        System.out.println(qp.getDatatype(allData));
+        
     }
 }
