@@ -47,15 +47,12 @@ public class QueryParameter {
 	}
 	//for finding the columns that need to be returned
 	public String[] fields(String query) {
-		//look up and look ahead so it doesn't return select and from
-		Pattern p = Pattern.compile("(?<=select)(.*)(?=from)");
-        Matcher m = p.matcher(query);
-        String fields = null;
-        while(m.find()){
-        	fields = m.group();
-        }
-        //stores the fields to be displayed
-        return fields.split(",");
+		//splitting to get the desired output
+		String[] a = query.split("select ");
+		String[] b = a[1].split(" from");
+		String[] c = b[0].split(",");
+		
+		return c;
 	}
 	
 	public ArrayList<String> getDatatype(ArrayList<String[]> rowList) {
@@ -83,7 +80,7 @@ public class QueryParameter {
 		return datatype;
 	}
 	
-	//presentable getting datatypes
+	// getting datatypes
 	public HashMap<String, String> hashedGetDatatype(ArrayList<String[]> rowList) {
 		//contains the first row
 		String[] keys = rowList.get(0);
@@ -122,7 +119,9 @@ public class QueryParameter {
 	public void FireQuery(String query, ArrayList<String[]> allData, QueryParameter qp) {
 		//contains where
 		if(query.contains("where")) {
-			
+			if(query.contains("*")) {
+				//contains star but no where		
+			}
 		}
 		//doesn't contains where
 		else {
@@ -130,7 +129,7 @@ public class QueryParameter {
 			//contains * and no where
 			if(query.contains("*")) {
 				//to display all
-			    for(String s[]: allData) {
+			    for(String s[] : allData) {
 			    	System.out.println();
 			    	for(String s1 : s) {
 			    		System.out.print(s1+"\t\t");
@@ -141,19 +140,23 @@ public class QueryParameter {
 			//contains no star and no where
 			else {
 				String[] fields = qp.fields(query);
-				String[] var = allData.get(0);
-				int i = 0;
-				ArrayList<Integer> index = new ArrayList<>();
-				for(String s : fields) {
-					for(String j : var) {
-						if(s.equals(j)){
-							index.add(i);
-						}
-						i++;
+				String[] columns = allData.get(0);
+				ArrayList<Integer> match = new ArrayList<>();
+				for(int i = 0; i < fields.length; i++) {
+					for(int j = 0; j < columns.length; j++) {
+						//getting the index of the matching fields
+						if(fields[i].equals(columns[j]))
+							match.add(j);
 					}
 				}
-				for(int x : index)
-					System.out.println(x);
+				
+				for(String[] s : allData) {
+					System.out.println();
+					for(int i = 0; i < s.length ;i++) {
+						if(match.contains(i))
+							System.out.print(s[i]+"\t");
+					}
+				}
 				
 			}
 		}
