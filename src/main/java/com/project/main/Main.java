@@ -17,7 +17,7 @@ class Main {
         //contains all the data from the csv file in a 2d array format
         allData = fc.allData();
         
-       qp.FireQuery(user_query, allData,qp);
+       qp.FireQuery(user_query, allData);
          
         //System.out.println(qp.getDatatype(allData));
        

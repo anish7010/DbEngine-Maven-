@@ -27,7 +27,7 @@ public class TestQueryParameter {
 		@Test
 		public void fieldsTest() {
 			String query = "select name,city,wickets from everything";
-			String[] expected = {" name","city","wickets "};
+			String[] expected = {"name","city","wickets"};
 			String[] result = qp.fields(query);
 			Assert.assertArrayEquals( expected, result);
 		}
