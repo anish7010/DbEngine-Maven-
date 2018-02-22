@@ -5,7 +5,7 @@ class Main {
     public static void main(String[] args) {
     	
     	//taking it hard coded values because of jenkins
-        String user_query = "select id,city from ipl.csv";
+        String user_query = "select * from ipl.csv";
         //user_query = scanner.nextLine();
         
         //object of QueryParameter class

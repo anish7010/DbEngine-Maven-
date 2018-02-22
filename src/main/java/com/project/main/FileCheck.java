@@ -19,7 +19,8 @@ public class FileCheck {
 			String[] arr;
 	        //got the column names
 			while ((line = br.readLine()) != null) {
-				arr = line.split(",");
+				//split by , but not the one in double quotes
+				arr = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 		        //everything stored in this list
 				rowList.add(arr);
 			}
